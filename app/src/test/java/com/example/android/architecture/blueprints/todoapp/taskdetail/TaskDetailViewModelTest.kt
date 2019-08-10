@@ -134,7 +134,14 @@ class TaskDetailViewModelTest {
 
     @Test
     fun loadTask_loading() {
-        // TODO
+
+        mainCoroutineRule.pauseDispatcher()
+
+        taskDetailViewModel.start(task.id)
+        assertThat(taskDetailViewModel.dataLoading.value).isTrue()
+
+        mainCoroutineRule.resumeDispatcher()
+        assertThat(taskDetailViewModel.dataLoading.value).isFalse()
     }
 
     @Test

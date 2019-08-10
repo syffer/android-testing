@@ -30,19 +30,20 @@ class StatisticsUtilsTest {
     @Test
     fun getActiveAndCompletedStats_error() {
         // When there's an error loading stats
-        // TODO
-
+        val tasks = null;
+        val result = getActiveAndCompletedStats(tasks)
         // Both active and completed tasks are 0
-        // TODO
+        assertThat(result.activeTasksPercent, `is`(0.0f))
+        assertThat(result.completedTasksPercent, `is`(0.0f))
     }
 
     @Test
     fun getActiveAndCompletedStats_empty() {
-        // When there are no tasks
-        // TODO
-
+        val tasks = emptyList<Task>();
+        val result = getActiveAndCompletedStats(tasks)
         // Both active and completed tasks are 0
-        // TODO
+        assertThat(result.activeTasksPercent, `is`(0.0f))
+        assertThat(result.completedTasksPercent, `is`(0.0f))
     }
 
     @Test

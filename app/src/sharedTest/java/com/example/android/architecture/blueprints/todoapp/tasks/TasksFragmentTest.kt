@@ -17,6 +17,7 @@ import androidx.test.espresso.matcher.ViewMatchers.hasSibling
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.ext.junit.rules.activityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.example.android.architecture.blueprints.todoapp.R
@@ -65,14 +66,22 @@ class TasksFragmentTest {
 
     @Test
     fun clickAddTaskButton_navigateToAddEditFragment() {
-        // GIVEN - On the home screen
-        // TODO
+        // Given a user in the home screen
+        val scenario = launchFragmentInContainer<TasksFragment>(Bundle(), R.style.AppTheme)
+        val navController = mock(NavController::class.java)
+        scenario.onFragment {
+            Navigation.setViewNavController(it.view!!, navController)
+        }
 
-        // WHEN - Click on the "+" button
-        // TODO
+        // When the FAB is clicked
+        onView(withId(R.id.fab_add_task)).perform(click())
 
-        // THEN - Verify that we navigate to the add screen
-        // TODO
+        // Then verify that we navigate to the add screen
+        val directions = TasksFragmentDirections.actionTasksFragmentToAddEditTaskFragment(
+    null,
+            getApplicationContext<Context>().getString(R.string.add_task)
+        )
+        verify(navController).navigate(directions)
     }
 
     @Test
